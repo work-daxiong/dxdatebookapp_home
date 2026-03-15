@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>时光笔记录 - 让每一个日子都有迹可循</title>
+    <title data-i18n="pageTitle">时光笔记录 - 让每一个日子都有迹可循</title>
     <style>
         :root {
             --bg-color: #F2F2F7;
@@ -45,6 +45,18 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .logo-container {
             display: flex;
             align-items: center;
@@ -62,6 +74,15 @@
             font-weight: 600;
             font-size: 1.1rem;
             letter-spacing: -0.02em;
+        }
+
+        .lang-selector {
+            font-size: 0.9rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            outline: none;
         }
 
         .nav-btn {
@@ -272,22 +293,32 @@
             .hero p { font-size: 1.2rem; }
             .features { grid-template-columns: 1fr; }
             .showcase-text { font-size: 1.4rem; }
+            .nav-right { gap: 10px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo-container">
-            <img src="assets/icon-1024.png" alt="时光笔记录 Logo">
-            <span class="logo-text">时光笔记录</span>
+        <div class="nav-left">
+            <div class="logo-container">
+                <img src="assets/icon-1024.png" alt="时光笔记录 Logo">
+                <span class="logo-text" data-i18n="appName">时光笔记录</span>
+            </div>
         </div>
-        <a href="#" class="nav-btn">立即下载</a>
+        <div class="nav-right">
+            <select class="lang-selector" id="langSelector">
+                <option value="zh-CN">简体中文</option>
+                <option value="en">English</option>
+                <option value="zh-Hant">繁體中文</option>
+            </select>
+            <a href="#" class="nav-btn" data-i18n="download">立即下载</a>
+        </div>
     </nav>
 
     <header class="hero fade-in">
-        <h1>让每一个日子都有迹可循</h1>
-        <p>时光笔记录 助你管理所有重要的倒计时与纪念日</p>
+        <h1 data-i18n="heroTitle">让每一个日子都有迹可循</h1>
+        <p data-i18n="heroSubTitle">时光笔记录 助你管理所有重要的倒计时与纪念日</p>
         <div class="iphone-mockup">
             <div class="iphone-screen">
                 <img src="assets/IMG_0019.PNG" alt="App 截图">
@@ -298,23 +329,23 @@
     <section class="features">
         <div class="feature-card fade-in">
             <div class="feature-icon">🎨</div>
-            <h3>多彩卡片</h3>
-            <p>为每个日子定制专属色彩，让你的记录更具个性。</p>
+            <h3 data-i18n="feature1Title">多彩卡片</h3>
+            <p data-i18n="feature1Desc">为每个日子定制专属色彩，让你的记录更具个性。</p>
         </div>
         <div class="feature-card fade-in">
             <div class="feature-icon">🔔</div>
-            <h3>智能提醒</h3>
-            <p>灵活的通知推送，不漏掉任何生活中的小惊喜。</p>
+            <h3 data-i18n="feature2Title">智能提醒</h3>
+            <p data-i18n="feature2Desc">灵活的通知推送，不漏掉任何生活中的小惊喜。</p>
         </div>
         <div class="feature-card fade-in">
             <div class="feature-icon">☁️</div>
-            <h3>云端同步</h3>
-            <p>依靠 iCloud 守护你的珍贵记忆，换机也不怕丢。</p>
+            <h3 data-i18n="feature3Title">云端同步</h3>
+            <p data-i18n="feature3Desc">依靠 iCloud 守护你的珍贵记忆，换机也不怕丢。</p>
         </div>
     </section>
 
     <section class="showcase fade-in">
-        <p class="showcase-text">支持置顶重要事件，分类管理生活与工作，更有精美海报分享功能。</p>
+        <p class="showcase-text" data-i18n="showcaseText">支持置顶重要事件，分类管理生活与工作，更有精美海报分享功能。</p>
         <div class="screenshots-row">
             <img src="assets/IMG_0020.PNG" alt="截图 1">
             <img src="assets/IMG_0021.PNG" alt="截图 2">
@@ -324,14 +355,99 @@
 
     <footer>
         <div class="footer-links">
-            <a href="#">隐私协议</a>
-            <a href="#">联系我们</a>
+            <a href="https://dxdatebookappprivacyzh.vercel.app/" id="privacyLink" target="_blank" data-i18n="privacy">隐私协议</a>
+            <a href="mailto:work_daxiong@126.com" data-i18n="contact">联系我们</a>
         </div>
-        <p class="copyright">&copy; 2026 时光笔记录. 保留所有权利。</p>
+        <p class="copyright">&copy; 2026 <span data-i18n="appName">时光笔记录</span>. <span data-i18n="rights">保留所有权利。</span></p>
     </footer>
 
     <script>
+        const translations = {
+            'zh-CN': {
+                pageTitle: '时光笔记录 - 让每一个日子都有迹可循',
+                appName: '时光笔记录',
+                download: '立即下载',
+                heroTitle: '让每一个日子都有迹可循',
+                heroSubTitle: '时光笔记录 助你管理所有重要的倒计时与纪念日',
+                feature1Title: '多彩卡片',
+                feature1Desc: '为每个日子定制专属色彩，让你的记录更具个性。',
+                feature2Title: '智能提醒',
+                feature2Desc: '灵活的通知推送，不漏掉任何生活中的小惊喜。',
+                feature3Title: '云端同步',
+                feature3Desc: '依靠 iCloud 守护你的珍贵记忆，换机也不怕丢。',
+                showcaseText: '支持置顶重要事件，分类管理生活与工作，更有精美海报分享功能。',
+                privacy: '隐私协议',
+                contact: '联系我们',
+                rights: '保留所有权利。',
+                privacyUrl: 'https://dxdatebookappprivacyzh.vercel.app/'
+            },
+            'en': {
+                pageTitle: 'Date Book - Make Every Day Traceable',
+                appName: 'Date Book',
+                download: 'Download Now',
+                heroTitle: 'Make Every Day Traceable',
+                heroSubTitle: 'Date Book helps you manage all important countdowns and anniversaries',
+                feature1Title: 'Colorful Cards',
+                feature1Desc: 'Customize exclusive colors for each day to personalize your records.',
+                feature2Title: 'Smart Reminders',
+                feature2Desc: 'Flexible notification push, never miss any surprises in life.',
+                feature3Title: 'Cloud Sync',
+                feature3Desc: 'Rely on iCloud to guard your precious memories, no fear of loss.',
+                showcaseText: 'Support pinning important events, categorized management of life and work, and exquisite poster sharing.',
+                privacy: 'Privacy Policy',
+                contact: 'Contact Us',
+                rights: 'All rights reserved.',
+                privacyUrl: 'https://dxdatebookappprivacyen.vercel.app/'
+            },
+            'zh-Hant': {
+                pageTitle: '時光筆記錄 - 讓每一個日子都有跡可循',
+                appName: '時光筆記錄',
+                download: '立即下載',
+                heroTitle: '讓每一個日子都有跡可循',
+                heroSubTitle: '時光筆記錄 助你管理所有重要的倒計時與紀念日',
+                feature1Title: '多彩卡片',
+                feature1Desc: '為每個日子定制專屬色彩，讓你的記錄更具個性。',
+                feature2Title: '智能提醒',
+                feature2Desc: '靈活的通知推送，不漏掉任何生活中的小驚喜。',
+                feature3Title: '雲端同步',
+                feature3Desc: '依靠 iCloud 守護你的珍貴記憶，換機也不怕丟。',
+                showcaseText: '支持置頂重要事件，分類管理生活與工作，更有精美海報分享功能。',
+                privacy: '隱私政策',
+                contact: '聯繫我們',
+                rights: '保留所有權利。',
+                privacyUrl: 'https://dxdatebookappprivacyhant.vercel.app/'
+            }
+        };
+
+        function setLanguage(lang) {
+            const translation = translations[lang];
+            
+            // 更新标题
+            document.title = translation.pageTitle;
+            
+            // 更新所有带有 data-i18n 属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translation[key]) {
+                    el.textContent = translation[key];
+                }
+            });
+
+            // 更新隐私链接
+            document.getElementById('privacyLink').href = translation.privacyUrl;
+            
+            // 更新 HTML 的 lang 属性
+            document.documentElement.lang = lang;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            const langSelector = document.getElementById('langSelector');
+            
+            langSelector.addEventListener('change', (e) => {
+                setLanguage(e.target.value);
+            });
+
+            // 初始化淡入动画
             const observerOptions = {
                 threshold: 0.1
             };
