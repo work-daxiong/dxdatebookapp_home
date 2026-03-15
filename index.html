@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光笔记录 - 让每一个日子都有迹可循</title>
+    <style>
+        :root {
+            --bg-color: #F2F2F7;
+            --card-color: #FFFFFF;
+            --accent-color: #FFD700;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --transition-speed: 0.8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-btn {
+            background-color: var(--text-primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Hero 区 */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .iphone-mockup {
+            position: relative;
+            width: 300px;
+            height: 610px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25);
+            margin-top: 20px;
+        }
+
+        .iphone-mockup::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .iphone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 功能区 */
+        .features {
+            padding: 100px 5% 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-color);
+            padding: 40px;
+            border-radius: 28px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* 展示区 */
+        .showcase {
+            padding: 80px 5%;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .showcase-text {
+            font-size: 1.8rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 60px;
+        }
+
+        .screenshots-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .screenshots-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screenshots-row img {
+            width: 220px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 60px 5% 40px;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+        }
+
+        /* 动画相关 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .features { grid-template-columns: 1fr; }
+            .showcase-text { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="assets/icon-1024.png" alt="时光笔记录 Logo">
+            <span class="logo-text">时光笔记录</span>
+        </div>
+        <a href="#" class="nav-btn">立即下载</a>
+    </nav>
+
+    <header class="hero fade-in">
+        <h1>让每一个日子都有迹可循</h1>
+        <p>时光笔记录 助你管理所有重要的倒计时与纪念日</p>
+        <div class="iphone-mockup">
+            <div class="iphone-screen">
+                <img src="assets/IMG_0019.PNG" alt="App 截图">
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🎨</div>
+            <h3>多彩卡片</h3>
+            <p>为每个日子定制专属色彩，让你的记录更具个性。</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔔</div>
+            <h3>智能提醒</h3>
+            <p>灵活的通知推送，不漏掉任何生活中的小惊喜。</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">☁️</div>
+            <h3>云端同步</h3>
+            <p>依靠 iCloud 守护你的珍贵记忆，换机也不怕丢。</p>
+        </div>
+    </section>
+
+    <section class="showcase fade-in">
+        <p class="showcase-text">支持置顶重要事件，分类管理生活与工作，更有精美海报分享功能。</p>
+        <div class="screenshots-row">
+            <img src="assets/IMG_0020.PNG" alt="截图 1">
+            <img src="assets/IMG_0021.PNG" alt="截图 2">
+            <img src="assets/IMG_0022.PNG" alt="截图 3">
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">隐私协议</a>
+            <a href="#">联系我们</a>
+        </div>
+        <p class="copyright">&copy; 2026 时光笔记录. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
